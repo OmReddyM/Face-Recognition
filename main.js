@@ -7,7 +7,7 @@ Webcam.set({
 camera = document.getElementById("camera");
 Webcam.attach("#camera");
 
-function snapshot() {
+function Snapshot() {
     Webcam.snap(function (data_uri) {
         document.getElementById("result").innerHTML = "<img id='capturedImage' src='" + data_uri + "'>"
     });
