@@ -7,7 +7,7 @@ Webcam.set({
 camera = document.getElementById("camera");
 Webcam.attach("#camera");
 
-function Snapshot() {
+function snapshot() {
     Webcam.snap(function (data_uri) {
         document.getElementById("result").innerHTML = "<img id='capturedImage' src='" + data_uri + "'>"
     });
@@ -15,3 +15,19 @@ function Snapshot() {
 
 console.log("ML5 version: ", ml5.version);
 classifier = ml5.imageClassifier("https://teachablemachine.withgoogle.com/models/Dw4DlwC8J/modal.json", function () { console.log("Modal Loaded!"); });
+
+function identify() {
+    img = document.getElementById('capturedImage');
+    classifier.classify(img, getResult);
+}
+
+function getResult(error, results) {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(results);
+        percent = Math.round(results[0].confidence * 100)
+        document.getElementById("objName").innerHTML = results[0].label;
+        document.getElementById("objAcc").innerHTML = percent + "%";
+    }
+}
